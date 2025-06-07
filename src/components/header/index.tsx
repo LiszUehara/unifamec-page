@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Header() {
@@ -23,24 +24,23 @@ export default function Header() {
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <div className="flex-shrink-0 mb-4 md:mb-0">
                             <Link href="/" className="flex items-center">
-                                <img
+                                <Image
                                     alt="Logo"
                                     loading="lazy"
                                     width={140}
                                     height={100}
                                     className="w-[140px] h-auto md:w-[230px] md:h-auto"
-                                    src="unifamec-logo.webp"
+                                    src="/unifamec-logo.webp"
                                     style={{ color: 'transparent' }}
                                 />
                             </Link>
                         </div>
 
                         <div className="hidden md:flex items-center gap-6">
-                            <Link href="/cursos/graduacao-presencial" className="font-medium hover:text-yellow-600">Graduação Presencial</Link>
+                            <Link href="/cursos/graduacao-presencial/bacharelado" className="font-medium hover:text-yellow-600">Nossos Cursos</Link>
                             <span className="text-gray-300">|</span>
-                            <Link href="/cursos/graduacao-semipresencial" className="font-medium hover:text-yellow-600">Graduação Semi Presencial</Link>
-                            <span className="text-gray-300">|</span>
-                            <Link href="/cursos/graduacao-ead" className="font-medium hover:text-yellow-600">Graduação EAD</Link>
+                            <Link href="/cursos/graduacao-semipresencial" className="font-medium hover:text-yellow-600">Sobre Nós</Link>
+                            
 
                             <Link href="/login-institucional" target="_blank" rel="noopener noreferrer">
                                 <div className="flex items-center justify-center text-sm md:text-base rounded-[calc(theme(borderRadius.lg)-2px)] border-2 border-yellow-600 bg-blue-800 text-white px-6 py-3 w-[125px] h-[52px] shadow-md transition-all duration-300 hover:shadow-lg">

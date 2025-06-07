@@ -15,6 +15,7 @@ export default function Breadcrumb() {
                 Cursos
               </a>
             </li>
+            {/*
             <li className="flex items-center">
               <svg
                 className="w-3 h-3 mx-2 text-yellow-400"
@@ -50,9 +51,11 @@ export default function Breadcrumb() {
               </svg>
               <span className="font-semibold text-white">Bacharelado</span>
             </li>
+            */}
+
           </ol>
         </nav>
-        <h1 className="text-4xl font-bold mt-4">Bacharelado (Presencial)</h1>
+        <h1 className="text-4xl font-bold mt-4">Bacharelado</h1>
       </div>
     </div>
   );
