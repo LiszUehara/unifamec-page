@@ -14,13 +14,11 @@ interface DecodedToken extends JwtPayload {
   role: Role;
 }
 
-// Hash de senha
 export const hashPassword = async (password: string): Promise<string> => {
   const saltRounds = 12;
   return await bcrypt.hash(password, saltRounds);
 };
 
-// Comparar senha
 export const comparePassword = async (
   password: string,
   hashedPassword: string
@@ -28,7 +26,6 @@ export const comparePassword = async (
   return await bcrypt.compare(password, hashedPassword);
 };
 
-// Gerar JWT
 export const generateToken = (
   userId: string,
   email: string,
@@ -48,7 +45,6 @@ export const generateToken = (
   );
 };
 
-// Verificar JWT
 export const verifyToken = (token: string): DecodedToken => {
   try {
     return jwt.verify(token, JWT_SECRET) as DecodedToken;
@@ -57,7 +53,6 @@ export const verifyToken = (token: string): DecodedToken => {
   }
 };
 
-// Extrair token do request
 export const getTokenFromRequest = (request: Request): string | null => {
   const authHeader = request.headers.get('authorization');
   if (authHeader && authHeader.startsWith('Bearer ')) {

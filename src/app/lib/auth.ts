@@ -1,6 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import prisma from './prisma';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key';
 
@@ -12,13 +13,11 @@ interface DecodedToken extends JwtPayload {
   role: Role;
 }
 
-// Hash de senha
 export const hashPassword = async (password: string): Promise<string> => {
   const saltRounds = 12;
   return await bcrypt.hash(password, saltRounds);
 };
 
-// Comparar senha
 export const comparePassword = async (
   password: string,
   hashedPassword: string
@@ -26,7 +25,6 @@ export const comparePassword = async (
   return await bcrypt.compare(password, hashedPassword);
 };
 
-// Gerar JWT
 export const generateToken = (
   userId: string,
   email: string,
@@ -46,7 +44,6 @@ export const generateToken = (
   );
 };
 
-// Verificar JWT
 export const verifyToken = (token: string): DecodedToken => {
   try {
     return jwt.verify(token, JWT_SECRET) as DecodedToken;
@@ -54,8 +51,15 @@ export const verifyToken = (token: string): DecodedToken => {
     throw new Error('Token inválido');
   }
 };
+export async function getCurrentUser(req: NextRequest) {
+  const token = req.headers.get('authorization')?.split(' ')[1];
+  if (!token) return null;
 
-// Extrair token do request
+  const decodes = await verifyToken(token);
+  if (!decodes) return null;
+
+  return await prisma.user.findUnique({ where: { id: decodes.userId } });
+}
 export const getTokenFromRequest = (request: Request): string | null => {
   const authHeader = request.headers.get('authorization');
   if (authHeader && authHeader.startsWith('Bearer ')) {

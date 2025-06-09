@@ -39,7 +39,6 @@ export async function POST(request: Request) {
     // Gerar token JWT
     const token = generateToken(user.id, user.email, user.role);
 
-    // Retornar dados do usuário (sem a senha)
     const { password: _, ...userWithoutPassword } = user;
 
     return NextResponse.json({
