@@ -19,7 +19,6 @@ export default function LoginPage() {
       ...formData,
       [e.target.name]: e.target.value
     });
-    // Limpar erro quando usuário começar a digitar
     if (error) setError('');
   };
 
@@ -39,12 +38,11 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Armazenar token no localStorage
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
         
         // Redirecionar para dashboard
-        router.push('/dashboard');
+        router.push('/dashboard/courses');
       } else {
         setError(data.error || 'Erro ao fazer login');
       }
@@ -59,7 +57,6 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 p-8">
-          {/* Header */}
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <LogIn className="w-8 h-8 text-white" />
@@ -72,16 +69,13 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="bg-red-500/20 border border-red-400 text-red-300 px-4 py-3 rounded-lg mb-6">
               {error}
             </div>
           )}
 
-          {/* Form */}
           <div className="space-y-6">
-            {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                 Email
@@ -101,7 +95,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Password Field */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
                 Senha
@@ -128,7 +121,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Submit Button */}
             <button
               onClick={handleSubmit}
               disabled={loading}
@@ -148,7 +140,6 @@ export default function LoginPage() {
             </button>
           </div>
 
-          {/* Footer */}
           <div className="text-center mt-6">
             <p className="text-gray-300">
               Não tem uma conta?{' '}
